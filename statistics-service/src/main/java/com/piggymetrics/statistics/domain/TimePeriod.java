@@ -13,7 +13,7 @@ public enum TimePeriod {
 	}
 
 	public BigDecimal getBaseRatio() {
-		return new BigDecimal(baseRatio);
+		return BigDecimal.valueOf(baseRatio);
 	}
 
 	public static TimePeriod getBase() {

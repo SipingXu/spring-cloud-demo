@@ -31,7 +31,7 @@ public interface RecipientService {
 	 * @param recipient
 	 * @return updated recipient
 	 */
-	Recipient save(String accountName, Recipient recipient);
+	Recipient save(String accountName, RecipientDTO recipient);
 
 	/**
 	 * Updates {@link NotificationType} {@code lastNotified} property with current date

@@ -1,6 +1,7 @@
 package com.piggymetrics.notification.controller;
 
 import com.piggymetrics.notification.domain.Recipient;
+import com.piggymetrics.notification.service.RecipientDTO;
 import com.piggymetrics.notification.service.RecipientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class RecipientController {
 	}
 
 	@RequestMapping(path = "/current", method = RequestMethod.PUT)
-	public Object saveCurrentNotificationsSettings(Principal principal, @Valid @RequestBody Recipient recipient) {
+	public Object saveCurrentNotificationsSettings(Principal principal, @Valid @RequestBody RecipientDTO recipient) {
 		return recipientService.save(principal.getName(), recipient);
 	}
 }
