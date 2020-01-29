@@ -63,16 +63,16 @@ public class RecipientServiceImplTest {
 		backup.setFrequency(Frequency.MONTHLY);
 		backup.setLastNotified(new Date());
 
-		Recipient recipient = new Recipient();
-		recipient.setEmail("test@test.com");
-		recipient.setScheduledNotifications(ImmutableMap.of(
+		RecipientDTO recipientDTO = new RecipientDTO();
+		recipientDTO.setEmail("test@test.com");
+		recipientDTO.setScheduledNotifications(ImmutableMap.of(
 				NotificationType.BACKUP, backup,
 				NotificationType.REMIND, remind
 		));
 
-		Recipient saved = recipientService.save("test", recipient);
+		Recipient saved = recipientService.save("test", recipientDTO);
 
-		verify(repository).save(recipient);
+		verify(repository).save(saved);
 		assertNotNull(saved.getScheduledNotifications().get(NotificationType.REMIND).getLastNotified());
 		assertEquals("test", saved.getAccountName());
 	}
