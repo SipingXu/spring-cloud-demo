@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: turbine-stream-service
+  cloud:
+    config:
+      #uri: http://config:8888
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+      discovery:
+        enabled: true
+        service-id: config-server
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka/
