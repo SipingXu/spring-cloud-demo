@@ -2,13 +2,13 @@
 
 This is a ***proof-of-concept application***, which demonstrates [Microservice Architecture Pattern](http://martinfowler.com/microservices/) using Spring Boot, Spring Cloud and Docker (forked from [sqshq/piggymetrics](https://github.com/sqshq/piggymetrics)).
 
-<img width="880" alt="Piggy Metrics" src="./assets/piggymetrics.gif">
+<img width="880" alt="Spring Cloud Demo" src="./docs/assets/piggymetrics.gif">
 
 ## Functional services
 
 The demo was decomposed into three core microservices. All of them are independently deployable applications, organized around certain business domains.
 
-<img width="880" alt="Functional services" src="./assets/functional-services.png">
+<img width="880" alt="Functional services" src="./docs/assets/functional-services.png">
 
 #### Account service
 Contains general user input logic and validation: incomes/expenses items, savings and account settings.
@@ -48,7 +48,7 @@ PUT	| /notifications/settings/current	| Save current account notification settin
 
 ## Infrastructure services
 There's a bunch of common patterns in distributed systems, which could help us to make described core services work. [Spring cloud](http://projects.spring.io/spring-cloud/) provides powerful tools that enhance Spring Boot applications behaviour to implement those patterns. I'll cover them briefly.
-<img width="880" alt="Infrastructure services" src="./assets/infra-services.png">
+<img width="880" alt="Infrastructure services" src="./docs/assets/infra-services.png">
 ### Config service
 [Spring Cloud Config](http://cloud.spring.io/spring-cloud-config/spring-cloud-config.html) is horizontally scalable centralized configuration service for distributed systems. It uses a pluggable repository layer that currently supports local storage, Git, and Subversion. 
 
@@ -185,7 +185,7 @@ Let's see our system behavior under load: Account service calls Statistics servi
 
 <img width="880" src="https://cloud.githubusercontent.com/assets/6069066/14194375/d9a2dd80-f7be-11e5-8bcc-9a2fce753cfe.png">
 
-<img width="212" src="./assets/circuit-0ms.gif">	| <img width="212" src="./assets/circuit-500ms.gif"> | <img width="212" src="./assets/circuit-800ms.gif"> | <img width="212" src="./assets/circuit-1100ms.gif">
+<img width="212" src="./docs/assets/circuit-0ms.gif">	| <img width="212" src="./docs/assets/circuit-500ms.gif"> | <img width="212" src="./docs/assets/circuit-800ms.gif"> | <img width="212" src="./docs/assets/circuit-1100ms.gif">
 --- |--- |--- |--- |
 | `0 ms delay` | `500 ms delay` | `800 ms delay` | `1100 ms delay`
 | Well behaving system. The throughput is about 22 requests/second. Small number of active threads in Statistics service. The median service time is about 50 ms. | The number of active threads is growing. We can see purple number of thread-pool rejections and therefore about 30-40% of errors, but circuit is still closed. | Half-open state: the ratio of failed commands is more than 50%, the circuit breaker kicks in. After sleep window amount of time, the next request is let through. | 100 percent of the requests fail. The circuit is now permanently open. Retry after sleep time won't close circuit again, because the single request is too slow.
@@ -227,7 +227,7 @@ Deploying microservices, with their interdependence, is much more complex proces
 
 Here is a simple Continuous Delivery workflow, implemented in this project:
 
-<img width="880" src="./assets/ci-flow.png">
+<img width="880" src="./docs/assets/ci-flow.png">
 
 ## How to run all the things?
 

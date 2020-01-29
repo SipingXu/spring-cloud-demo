@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3.8.2
     restart: always
     ports:
       - 15672:15672
@@ -14,7 +14,7 @@ services:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: registry
-    image: piggymetrics-registry:1.0
+    image: piggymetrics-registry:1.0.0
     restart: always
     ports:
       - 8761:8761
@@ -27,7 +27,7 @@ services:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: config
-    image: piggymetrics-config:1.0
+    image: piggymetrics-config:1.0.0
     restart: always
     depends_on:
       - registry
@@ -40,7 +40,7 @@ services:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: gateway
-    image: piggymetrics-gateway:1.0
+    image: piggymetrics-gateway:1.0.0
     restart: always
     depends_on:
       - config
@@ -59,7 +59,7 @@ services:
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     build: auth-service
-    image: piggymetrics-auth-service:1.0
+    image: piggymetrics-auth-service:1.0.0
     restart: always
     depends_on:
       - config
@@ -72,7 +72,7 @@ services:
     environment:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     build: mongodb
-    image: piggymetrics-mongodb:1.0
+    image: piggymetrics-mongodb:1.0.0
     restart: always
     logging:
       options:
@@ -85,7 +85,7 @@ services:
       ACCOUNT_SERVICE_PASSWORD: $ACCOUNT_SERVICE_PASSWORD
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     build: account-service
-    image: piggymetrics-account-service:1.0
+    image: piggymetrics-account-service:1.0.0
     restart: always
     depends_on:
       - config
@@ -100,7 +100,7 @@ services:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
       STATISTICS_SERVICE_PASSWORD: $STATISTICS_SERVICE_PASSWORD
     build: statistics-service
-    image: piggymetrics-statistics-service:1.0
+    image: piggymetrics-statistics-service:1.0.0
     restart: always
     depends_on:
       - config
@@ -115,7 +115,7 @@ services:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
       NOTIFICATION_SERVICE_PASSWORD: $NOTIFICATION_SERVICE_PASSWORD
     build: notification-service
-    image: piggymetrics-notification-service:1.0
+    image: piggymetrics-notification-service:1.0.0
     restart: always
     depends_on:
       - config
@@ -128,7 +128,7 @@ services:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: monitoring
-    image: piggymetrics-monitoring:1.0
+    image: piggymetrics-monitoring:1.0.0
     restart: always
     depends_on:
       - config
@@ -143,7 +143,7 @@ services:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
     build: turbine-stream-service
-    image: piggymetrics-turbine-stream-service:1.0
+    image: piggymetrics-turbine-stream-service:1.0.0
     restart: always
     depends_on:
       - config
