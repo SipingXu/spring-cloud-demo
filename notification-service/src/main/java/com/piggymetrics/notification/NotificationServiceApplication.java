@@ -1,7 +1,7 @@
 package com.piggymetrics.notification;
 
-import com.piggymetrics.notification.repository.converter.FrequencyReaderConverter;
-import com.piggymetrics.notification.repository.converter.FrequencyWriterConverter;
+import com.piggymetrics.notification.domain.converter.FrequencyReaderConverter;
+import com.piggymetrics.notification.domain.converter.FrequencyWriterConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
