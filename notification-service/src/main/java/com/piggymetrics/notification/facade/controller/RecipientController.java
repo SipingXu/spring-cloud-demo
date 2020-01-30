@@ -3,10 +3,7 @@ package com.piggymetrics.notification.facade.controller;
 import com.piggymetrics.notification.application.dto.RecipientDTO;
 import com.piggymetrics.notification.application.service.RecipientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -23,7 +20,7 @@ public class RecipientController {
         return recipientService.findByAccountName(principal.getName());
     }
 
-    @GetMapping(path = "/current")
+    @PutMapping(path = "/current")
     public Object saveCurrentNotificationsSettings(Principal principal, @Valid @RequestBody RecipientDTO recipientDTO) {
         return recipientService.save(principal.getName(), recipientDTO);
     }
