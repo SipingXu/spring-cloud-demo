@@ -1,7 +1,9 @@
-package com.piggymetrics.auth.service;
+package com.piggymetrics.auth.application.service;
 
-import com.piggymetrics.auth.domain.User;
-import com.piggymetrics.auth.repository.UserRepository;
+import com.piggymetrics.auth.application.assembler.UserAssembler;
+import com.piggymetrics.auth.application.dto.UserDTO;
+import com.piggymetrics.auth.domain.entity.User;
+import com.piggymetrics.auth.domain.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +21,22 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
 
     @Override
-    public void create(User user) {
+    public User create(UserDTO userDTO) {
 
-        Optional<User> existing = repository.findById(user.getUsername());
+        Optional<User> existing = repository.findById(userDTO.getUsername());
         existing.ifPresent(it -> {
             throw new IllegalArgumentException("user already exists: " + it.getUsername());
         });
 
-        String hash = encoder.encode(user.getPassword());
-        user.setPassword(hash);
+        String hash = encoder.encode(userDTO.getPassword());
+        userDTO.setPassword(hash);
+
+        User user = UserAssembler.convertToEntity(userDTO);
 
         repository.save(user);
 
         log.info("new user has been created: {}", user.getUsername());
+
+        return user;
     }
 }

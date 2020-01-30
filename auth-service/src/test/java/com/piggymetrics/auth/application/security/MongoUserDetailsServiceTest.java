@@ -1,7 +1,7 @@
-package com.piggymetrics.auth.service.security;
+package com.piggymetrics.auth.application.security;
 
-import com.piggymetrics.auth.domain.User;
-import com.piggymetrics.auth.repository.UserRepository;
+import com.piggymetrics.auth.domain.entity.User;
+import com.piggymetrics.auth.domain.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

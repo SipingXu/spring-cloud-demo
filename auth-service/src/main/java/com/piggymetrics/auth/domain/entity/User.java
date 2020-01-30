@@ -1,5 +1,7 @@
-package com.piggymetrics.auth.domain;
+package com.piggymetrics.auth.domain.entity;
 
+import lombok.Data;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,8 +13,10 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
+    @Setter
     private String username;
 
+    @Setter
     private String password;
 
     @Override
@@ -20,17 +24,9 @@ public class User implements UserDetails {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String getUsername() {
         return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override

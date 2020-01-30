@@ -1,7 +1,9 @@
-package com.piggymetrics.auth.service;
+package com.piggymetrics.auth.application.service;
 
-import com.piggymetrics.auth.domain.User;
-import com.piggymetrics.auth.repository.UserRepository;
+import com.piggymetrics.auth.application.assembler.UserAssembler;
+import com.piggymetrics.auth.application.dto.UserDTO;
+import com.piggymetrics.auth.domain.entity.User;
+import com.piggymetrics.auth.domain.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -32,8 +34,10 @@ public class UserServiceTest {
         user.setUsername("name");
         user.setPassword("password");
 
-        userService.create(user);
-        verify(repository, times(1)).save(user);
+        UserDTO userDTO = UserAssembler.convertToDto(user);
+
+        User savedUser = userService.create(userDTO);
+        verify(repository, times(1)).save(savedUser);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -43,7 +47,9 @@ public class UserServiceTest {
         user.setUsername("name");
         user.setPassword("password");
 
+        UserDTO userDTO = UserAssembler.convertToDto(user);
+
         when(repository.findById(user.getUsername())).thenReturn(Optional.of(new User()));
-        userService.create(user);
+        userService.create(userDTO);
     }
 }

@@ -17,22 +17,22 @@ public class AccountController {
     private AccountService accountService;
 
     @PreAuthorize("#oauth2.hasScope('server') or #name.equals('demo')")
-    @RequestMapping(path = "/{name}", method = RequestMethod.GET)
+    @GetMapping(path = "/{name}")
     public AccountDTO getAccountByName(@PathVariable String name) {
         return accountService.findByName(name);
     }
 
-    @RequestMapping(path = "/current", method = RequestMethod.GET)
+    @GetMapping(path = "/current")
     public AccountDTO getCurrentAccount(Principal principal) {
         return accountService.findByName(principal.getName());
     }
 
-    @RequestMapping(path = "/current", method = RequestMethod.PUT)
+    @PutMapping(path = "/current")
     public void saveCurrentAccount(Principal principal, @Valid @RequestBody AccountDTO accountDTO) {
         accountService.saveChanges(principal.getName(), accountDTO);
     }
 
-    @RequestMapping(path = "/", method = RequestMethod.POST)
+    @PostMapping(path = "/")
     public AccountDTO createNewAccount(@Valid @RequestBody User user) {
         return accountService.create(user);
     }
