@@ -61,11 +61,15 @@ Now you don't need any embedded properties in your application. Just provide `bo
 ```yml
 spring:
   application:
-    name: notification-service
+    name: account-service
   cloud:
     config:
-      uri: http://config:8888
       fail-fast: true
+      username: user
+      password: ${CONFIG_SERVICE_PASSWORD}
+      discovery:
+        enabled: true
+        service-id: config-server
 ```
 
 ##### With Spring Cloud Config, you can change app configuration dynamically. 
@@ -183,7 +187,7 @@ See below [how to get it up and running](https://github.com/SipingXu/spring-clou
 
 Let's see our system behavior under load: Account service calls Statistics service and it responses with a vary imitation delay. Response timeout threshold is set to 1 second.
 
-<img width="880" src="https://cloud.githubusercontent.com/assets/6069066/14194375/d9a2dd80-f7be-11e5-8bcc-9a2fce753cfe.png">
+<img width="880" src="./docs/assets/circuit-title.png">
 
 <img width="212" src="./docs/assets/circuit-0ms.gif">	| <img width="212" src="./docs/assets/circuit-500ms.gif"> | <img width="212" src="./docs/assets/circuit-800ms.gif"> | <img width="212" src="./docs/assets/circuit-1100ms.gif">
 --- |--- |--- |--- |
