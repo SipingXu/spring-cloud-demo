@@ -2,12 +2,13 @@ spring:
   application:
     name: monitoring
   cloud:
-    fail-fast: true
-    password: ${CONFIG_SERVICE_PASSWORD}
-    username: user
-    discovery:
-      enabled: true
-      service-id: config-server
+    config:
+      fail-fast: true
+      password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
+      discovery:
+        enabled: true
+        service-id: config-server
 
 eureka:
   instance:

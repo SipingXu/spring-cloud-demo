@@ -1,4 +1,4 @@
-FROM mongo:4.2.3
+FROM mongo:3.4
 MAINTAINER Siping Xu <sipingxu@gmail.com>
 
 ADD init.sh /init.sh

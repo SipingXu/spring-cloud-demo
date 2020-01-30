@@ -1,6 +1,5 @@
 package com.piggymetrics.notification.controller;
 
-import com.piggymetrics.notification.domain.Recipient;
 import com.piggymetrics.notification.service.RecipientDTO;
 import com.piggymetrics.notification.service.RecipientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,16 +15,16 @@ import java.security.Principal;
 @RequestMapping("/recipients")
 public class RecipientController {
 
-	@Autowired
-	private RecipientService recipientService;
+    @Autowired
+    private RecipientService recipientService;
 
-	@RequestMapping(path = "/current", method = RequestMethod.GET)
-	public Object getCurrentNotificationsSettings(Principal principal) {
-		return recipientService.findByAccountName(principal.getName());
-	}
+    @RequestMapping(path = "/current", method = RequestMethod.GET)
+    public Object getCurrentNotificationsSettings(Principal principal) {
+        return recipientService.findByAccountName(principal.getName());
+    }
 
-	@RequestMapping(path = "/current", method = RequestMethod.PUT)
-	public Object saveCurrentNotificationsSettings(Principal principal, @Valid @RequestBody RecipientDTO recipient) {
-		return recipientService.save(principal.getName(), recipient);
-	}
+    @RequestMapping(path = "/current", method = RequestMethod.PUT)
+    public Object saveCurrentNotificationsSettings(Principal principal, @Valid @RequestBody RecipientDTO recipient) {
+        return recipientService.save(principal.getName(), recipient);
+    }
 }

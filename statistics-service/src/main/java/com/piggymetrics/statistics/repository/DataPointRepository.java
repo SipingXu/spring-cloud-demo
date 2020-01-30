@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface DataPointRepository extends CrudRepository<DataPoint, DataPointId> {
 
-	List<DataPoint> findByIdAccount(String account);
+    List<DataPoint> findByIdAccount(String account);
 
 }

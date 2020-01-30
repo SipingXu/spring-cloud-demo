@@ -17,70 +17,70 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class NotificationServiceImplTest {
 
-	@InjectMocks
-	private NotificationServiceImpl notificationService;
+    @InjectMocks
+    private NotificationServiceImpl notificationService;
 
-	@Mock
-	private RecipientService recipientService;
+    @Mock
+    private RecipientService recipientService;
 
-	@Mock
-	private AccountServiceClient client;
+    @Mock
+    private AccountServiceClient client;
 
-	@Mock
-	private EmailService emailService;
+    @Mock
+    private EmailService emailService;
 
-	@Before
-	public void setup() {
-		initMocks(this);
-	}
+    @Before
+    public void setup() {
+        initMocks(this);
+    }
 
-	@Test
-	public void shouldSendBackupNotificationsEvenWhenErrorsOccursForSomeRecipients() throws IOException, MessagingException, InterruptedException {
+    @Test
+    public void shouldSendBackupNotificationsEvenWhenErrorsOccursForSomeRecipients() throws IOException, MessagingException, InterruptedException {
 
-		final String attachment = "json";
+        final String attachment = "json";
 
-		Recipient withError = new Recipient();
-		withError.setAccountName("with-error");
+        Recipient withError = new Recipient();
+        withError.setAccountName("with-error");
 
-		Recipient withNoError = new Recipient();
-		withNoError.setAccountName("with-no-error");
+        Recipient withNoError = new Recipient();
+        withNoError.setAccountName("with-no-error");
 
-		when(client.getAccount(withError.getAccountName())).thenThrow(new RuntimeException());
-		when(client.getAccount(withNoError.getAccountName())).thenReturn(attachment);
+        when(client.getAccount(withError.getAccountName())).thenThrow(new RuntimeException());
+        when(client.getAccount(withNoError.getAccountName())).thenReturn(attachment);
 
-		when(recipientService.findReadyToNotify(NotificationType.BACKUP)).thenReturn(ImmutableList.of(withNoError, withError));
+        when(recipientService.findReadyToNotify(NotificationType.BACKUP)).thenReturn(ImmutableList.of(withNoError, withError));
 
-		notificationService.sendBackupNotifications();
+        notificationService.sendBackupNotifications();
 
-		// TODO test concurrent code in a right way
+        // TODO test concurrent code in a right way
 
-		verify(emailService, timeout(100)).send(NotificationType.BACKUP, withNoError, attachment);
-		verify(recipientService, timeout(100)).markNotified(NotificationType.BACKUP, withNoError);
+        verify(emailService, timeout(100)).send(NotificationType.BACKUP, withNoError, attachment);
+        verify(recipientService, timeout(100)).markNotified(NotificationType.BACKUP, withNoError);
 
-		verify(recipientService, never()).markNotified(NotificationType.BACKUP, withError);
-	}
+        verify(recipientService, never()).markNotified(NotificationType.BACKUP, withError);
+    }
 
-	@Test
-	public void shouldSendRemindNotificationsEvenWhenErrorsOccursForSomeRecipients() throws IOException, MessagingException, InterruptedException {
+    @Test
+    public void shouldSendRemindNotificationsEvenWhenErrorsOccursForSomeRecipients() throws IOException, MessagingException, InterruptedException {
 
-		final String attachment = "json";
+        final String attachment = "json";
 
-		Recipient withError = new Recipient();
-		withError.setAccountName("with-error");
+        Recipient withError = new Recipient();
+        withError.setAccountName("with-error");
 
-		Recipient withNoError = new Recipient();
-		withNoError.setAccountName("with-no-error");
+        Recipient withNoError = new Recipient();
+        withNoError.setAccountName("with-no-error");
 
-		when(recipientService.findReadyToNotify(NotificationType.REMIND)).thenReturn(ImmutableList.of(withNoError, withError));
-		doThrow(new RuntimeException()).when(emailService).send(NotificationType.REMIND, withError, null);
+        when(recipientService.findReadyToNotify(NotificationType.REMIND)).thenReturn(ImmutableList.of(withNoError, withError));
+        doThrow(new RuntimeException()).when(emailService).send(NotificationType.REMIND, withError, null);
 
-		notificationService.sendRemindNotifications();
+        notificationService.sendRemindNotifications();
 
-		// TODO test concurrent code in a right way
+        // TODO test concurrent code in a right way
 
-		verify(emailService, timeout(100)).send(NotificationType.REMIND, withNoError, null);
-		verify(recipientService, timeout(100)).markNotified(NotificationType.REMIND, withNoError);
+        verify(emailService, timeout(100)).send(NotificationType.REMIND, withNoError, null);
+        verify(recipientService, timeout(100)).markNotified(NotificationType.REMIND, withNoError);
 
-		verify(recipientService, never()).markNotified(NotificationType.REMIND, withError);
-	}
+        verify(recipientService, never()).markNotified(NotificationType.REMIND, withError);
+    }
 }

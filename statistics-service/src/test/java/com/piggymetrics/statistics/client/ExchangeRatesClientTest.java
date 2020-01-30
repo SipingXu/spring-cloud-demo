@@ -17,33 +17,33 @@ import static org.junit.Assert.assertNotNull;
 @SpringBootTest
 public class ExchangeRatesClientTest {
 
-	@Autowired
-	private ExchangeRatesClient client;
+    @Autowired
+    private ExchangeRatesClient client;
 
-	@Test
-	public void shouldRetrieveExchangeRates() {
+    @Test
+    public void shouldRetrieveExchangeRates() {
 
-		ExchangeRatesContainer container = client.getRates(Currency.getBase());
+        ExchangeRatesContainer container = client.getRates(Currency.getBase());
 
-		assertEquals(container.getDate(), LocalDate.now());
-		assertEquals(container.getBase(), Currency.getBase());
+        assertEquals(container.getDate(), LocalDate.now());
+        assertEquals(container.getBase(), Currency.getBase());
 
-		assertNotNull(container.getRates());
-		assertNotNull(container.getRates().get(Currency.USD.name()));
-		assertNotNull(container.getRates().get(Currency.EUR.name()));
-		assertNotNull(container.getRates().get(Currency.RUB.name()));
-	}
+        assertNotNull(container.getRates());
+        assertNotNull(container.getRates().get(Currency.USD.name()));
+        assertNotNull(container.getRates().get(Currency.EUR.name()));
+        assertNotNull(container.getRates().get(Currency.RUB.name()));
+    }
 
-	@Test
-	public void shouldRetrieveExchangeRatesForSpecifiedCurrency() {
+    @Test
+    public void shouldRetrieveExchangeRatesForSpecifiedCurrency() {
 
-		Currency requestedCurrency = Currency.EUR;
-		ExchangeRatesContainer container = client.getRates(Currency.getBase());
+        Currency requestedCurrency = Currency.EUR;
+        ExchangeRatesContainer container = client.getRates(Currency.getBase());
 
-		assertEquals(container.getDate(), LocalDate.now());
-		assertEquals(container.getBase(), Currency.getBase());
+        assertEquals(container.getDate(), LocalDate.now());
+        assertEquals(container.getBase(), Currency.getBase());
 
-		assertNotNull(container.getRates());
-		assertNotNull(container.getRates().get(requestedCurrency.name()));
-	}
+        assertNotNull(container.getRates());
+        assertNotNull(container.getRates().get(requestedCurrency.name()));
+    }
 }

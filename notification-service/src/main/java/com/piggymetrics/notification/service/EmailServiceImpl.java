@@ -22,33 +22,33 @@ import java.text.MessageFormat;
 @RefreshScope
 public class EmailServiceImpl implements EmailService {
 
-	private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
-	@Autowired
-	private JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
-	@Autowired
-	private Environment env;
+    @Autowired
+    private Environment env;
 
-	@Override
-	public void send(NotificationType type, Recipient recipient, String attachment) throws MessagingException, IOException {
+    @Override
+    public void send(NotificationType type, Recipient recipient, String attachment) throws MessagingException, IOException {
 
-		final String subject = env.getProperty(type.getSubject());
-		final String text = MessageFormat.format(env.getProperty(type.getText()), recipient.getAccountName());
+        final String subject = env.getProperty(type.getSubject());
+        final String text = MessageFormat.format(env.getProperty(type.getText()), recipient.getAccountName());
 
-		MimeMessage message = mailSender.createMimeMessage();
+        MimeMessage message = mailSender.createMimeMessage();
 
-		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo(recipient.getEmail());
-		helper.setSubject(subject);
-		helper.setText(text);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setTo(recipient.getEmail());
+        helper.setSubject(subject);
+        helper.setText(text);
 
-		if (StringUtils.hasLength(attachment)) {
-			helper.addAttachment(env.getProperty(type.getAttachment()), new ByteArrayResource(attachment.getBytes()));
-		}
+        if (StringUtils.hasLength(attachment)) {
+            helper.addAttachment(env.getProperty(type.getAttachment()), new ByteArrayResource(attachment.getBytes()));
+        }
 
-		mailSender.send(message);
+        mailSender.send(message);
 
-		log.info("{} email notification has been send to {}", type, recipient.getEmail());
-	}
+        log.info("{} email notification has been send to {}", type, recipient.getEmail());
+    }
 }

@@ -20,11 +20,10 @@ import static org.hamcrest.Matchers.containsString;
         "feign.hystrix.enabled=true"
 })
 public class StatisticsServiceClientFallbackTest {
-    @Autowired
-    private StatisticsServiceClient statisticsServiceClient;
-
     @Rule
     public final OutputCapture outputCapture = new OutputCapture();
+    @Autowired
+    private StatisticsServiceClient statisticsServiceClient;
 
     @Before
     public void setup() {
@@ -32,7 +31,7 @@ public class StatisticsServiceClientFallbackTest {
     }
 
     @Test
-    public void testUpdateStatisticsWithFailFallback(){
+    public void testUpdateStatisticsWithFailFallback() {
         statisticsServiceClient.updateStatistics("test", new Account());
 
         outputCapture.expect(containsString("Error during update statistics for account: test"));

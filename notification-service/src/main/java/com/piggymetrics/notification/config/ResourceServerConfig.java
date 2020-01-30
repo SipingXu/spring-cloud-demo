@@ -22,8 +22,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
         return new ClientCredentialsResourceDetails();
     }
+
     @Bean
-    public RequestInterceptor oauth2FeignRequestInterceptor(){
+    public RequestInterceptor oauth2FeignRequestInterceptor() {
         return new OAuth2FeignRequestInterceptor(new DefaultOAuth2ClientContext(), clientCredentialsResourceDetails());
     }
 

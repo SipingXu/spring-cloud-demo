@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   rabbitmq:
-    image: rabbitmq:3.8.2
+    image: rabbitmq:3.8.2-management
     restart: always
     ports:
       - 15672:15672
@@ -72,8 +72,10 @@ services:
     environment:
       MONGODB_PASSWORD: $MONGODB_PASSWORD
     build: mongodb
-    image: piggymetrics-mongodb:1.0.0
+    image: piggymetrics-mongodb:3.4
     restart: always
+    volumes:
+      - /private/opt/mongodb:/data/db
     logging:
       options:
         max-size: "10m"
@@ -148,7 +150,8 @@ services:
     depends_on:
       - config
     ports:
-    - 8989:8989
+      - 8989:8989
+      - 8990:8080
     logging:
       options:
         max-size: "10m"
