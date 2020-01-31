@@ -145,33 +145,3 @@ services:
       options:
         max-size: "10m"
         max-file: "10"
-
-  monitoring:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: monitoring
-    image: piggymetrics-monitoring:1.0.0
-    restart: always
-    depends_on:
-      - config
-    ports:
-      - 9201:9201
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
-  turbine-stream-service:
-    environment:
-      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
-    build: turbine-stream-service
-    image: piggymetrics-turbine-stream-service:1.0.0
-    restart: always
-    depends_on:
-      - config
-    ports:
-      - 9202:9202
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
