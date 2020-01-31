@@ -2,6 +2,8 @@ FROM java:8-jre
 MAINTAINER Siping Xu <sipingxu@gmail.com>
 
 ADD ./target/registry.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/registry.jar"]
+CMD ["java", "-Xmx256m", "-jar", "/app/registry.jar"]
+
+HEALTHCHECK --interval=30s --timeout=30s CMD curl -f http://localhost:8761/actuator/health || exit 1
 
 EXPOSE 8761

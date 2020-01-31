@@ -2,6 +2,8 @@ FROM java:8-jre
 MAINTAINER Siping Xu <sipingxu@gmail.com>
 
 ADD ./target/monitoring.jar /app/
-CMD ["java", "-Xmx200m", "-jar", "/app/monitoring.jar"]
+CMD ["java", "-Xmx256m", "-jar", "/app/monitoring.jar"]
 
-EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=30s CMD curl -f http://localhost:9201/actuator/health || exit 1
+
+EXPOSE 9201

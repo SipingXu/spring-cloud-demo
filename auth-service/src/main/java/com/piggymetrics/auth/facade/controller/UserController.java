@@ -1,7 +1,6 @@
 package com.piggymetrics.auth.facade.controller;
 
 import com.piggymetrics.auth.application.dto.UserDTO;
-import com.piggymetrics.auth.domain.entity.User;
 import com.piggymetrics.auth.application.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

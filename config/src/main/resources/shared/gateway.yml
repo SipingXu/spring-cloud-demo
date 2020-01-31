@@ -1,3 +1,6 @@
+server:
+  port: 8763
+
 hystrix:
   command:
     default:
@@ -40,6 +43,3 @@ zuul:
       serviceId: notification-service
       stripPrefix: false
       sensitiveHeaders:
-
-server:
-  port: 4000

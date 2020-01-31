@@ -1,11 +1,11 @@
 spring:
   application:
-    name: account-service
+    name: admin-server
   cloud:
     config:
       fail-fast: true
-      username: user
       password: ${CONFIG_SERVICE_PASSWORD}
+      username: user
       discovery:
         enabled: true
         service-id: config-server

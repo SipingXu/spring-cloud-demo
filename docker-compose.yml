@@ -5,6 +5,22 @@ services:
     restart: always
     ports:
       - 15672:15672
+      - 5672:5672
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
+  mongodb:
+    environment:
+      MONGODB_PASSWORD: $MONGODB_PASSWORD
+    build: mongodb
+    image: piggymetrics-mongodb:3
+    ports:
+      - 27017:27017
+    restart: always
+    volumes:
+      - /private/opt/mongodb:/data/db
     logging:
       options:
         max-size: "10m"
@@ -29,6 +45,8 @@ services:
     build: config
     image: piggymetrics-config:1.0.0
     restart: always
+    ports:
+      - 8762:8762
     depends_on:
       - registry
     logging:
@@ -45,7 +63,7 @@ services:
     depends_on:
       - config
     ports:
-      - 80:4000
+      - 80:8763
     logging:
       options:
         max-size: "10m"
@@ -63,19 +81,6 @@ services:
     restart: always
     depends_on:
       - config
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
-  mongodb:
-    environment:
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
-    build: mongodb
-    image: piggymetrics-mongodb:3.4
-    restart: always
-    volumes:
-      - /private/opt/mongodb:/data/db
     logging:
       options:
         max-size: "10m"
@@ -126,6 +131,21 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  admin-server:
+    environment:
+      CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
+    build: admin-server
+    image: piggymetrics-admin-server:1.0.0
+    restart: always
+    depends_on:
+      - config
+    ports:
+      - 9200:9200
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   monitoring:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
@@ -135,7 +155,7 @@ services:
     depends_on:
       - config
     ports:
-      - 9000:8080
+      - 9201:9201
     logging:
       options:
         max-size: "10m"
@@ -150,8 +170,7 @@ services:
     depends_on:
       - config
     ports:
-      - 8989:8989
-      - 8990:8080
+      - 9202:9202
     logging:
       options:
         max-size: "10m"

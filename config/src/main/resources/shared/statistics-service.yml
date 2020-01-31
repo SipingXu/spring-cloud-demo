@@ -1,9 +1,14 @@
+server:
+  port: 9103
+  servlet:
+    context-path: /statistics
+
 security:
   oauth2:
     client:
       clientId: statistics-service
       clientSecret: ${STATISTICS_SERVICE_PASSWORD}
-      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      accessTokenUri: http://auth-service:9100/uaa/oauth/token
       scope: server
 
 spring:
@@ -14,11 +19,6 @@ spring:
       password: ${MONGODB_PASSWORD}
       database: piggymetrics
       port: 27017
-
-server:
-  servlet:
-    context-path: /statistics
-  port: 7000
 
 rates:
   url: https://api.exchangeratesapi.io

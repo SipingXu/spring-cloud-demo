@@ -256,7 +256,8 @@ If you'd like to start applications in Intellij Idea you need to either use [Env
 #### Important endpoints
 - http://localhost:80 - Gateway
 - http://localhost:8761 - Eureka Dashboard
-- http://localhost:9000/hystrix - Hystrix Dashboard (Turbine stream link: `http://turbine-stream-service:8080/turbine/turbine.stream`)
+- http://localhost:9200 - Spring Boot Admin Dashboard
+- http://localhost:9201/hystrix - Hystrix Dashboard (Turbine stream link: `http://turbine-stream-service:9202/turbine/turbine.stream`)
 - http://localhost:15672 - RabbitMq management (default login/password: guest/guest)
 
 #### Notes
