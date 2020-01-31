@@ -30,7 +30,10 @@ management:
   security:
     enabled: false
   endpoints:
-    web.exposure.include: "*"
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: always

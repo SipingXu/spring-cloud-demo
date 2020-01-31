@@ -22,17 +22,20 @@ eureka:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
     metadata-map:
-      startup: ${random.int}
+      management.context-path: /actuator
   client:
     registryFetchIntervalSeconds: 5
     serviceUrl:
       defaultZone: http://registry:8761/eureka/
 
 management:
+  security:
+    enabled: false
   endpoints:
     web:
+      base-path: /actuator
       exposure:
         include: "*"
   endpoint:
     health:
-      show-details: ALWAYS
+      show-details: always

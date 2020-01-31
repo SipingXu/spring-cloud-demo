@@ -4,6 +4,7 @@ import com.piggymetrics.notification.domain.converter.FrequencyReaderConverter;
 import com.piggymetrics.notification.domain.converter.FrequencyWriterConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +23,7 @@ import java.util.Arrays;
 @EnableFeignClients
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableScheduling
+@EnableCircuitBreaker
 public class NotificationServiceApplication {
 
     public static void main(String[] args) {
