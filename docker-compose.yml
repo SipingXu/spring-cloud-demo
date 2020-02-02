@@ -11,21 +11,6 @@ services:
         max-size: "10m"
         max-file: "10"
 
-  mongodb:
-    environment:
-      MONGODB_PASSWORD: $MONGODB_PASSWORD
-    build: mongodb
-    image: piggymetrics-mongodb:3
-    ports:
-      - 27017:27017
-    restart: always
-    volumes:
-      - /private/opt/mongodb:/data/db
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "10"
-
   arangodb:
     environment:
       ARANGO_ROOT_PASSWORD: $ARANGO_ROOT_PASSWORD
