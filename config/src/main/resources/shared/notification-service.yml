@@ -28,7 +28,7 @@ spring:
   data:
     arangodb:
       hosts: localhost:8529
-      user: user
+      user: ${ARANGO_USER_NAME}
       password: ${ARANGO_USER_PASSWORD}
       database: piggymetrics
   mail:
