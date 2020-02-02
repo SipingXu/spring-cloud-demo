@@ -26,6 +26,23 @@ services:
         max-size: "10m"
         max-file: "10"
 
+  arangodb:
+    environment:
+      ARANGO_ROOT_PASSWORD: $ARANGO_ROOT_PASSWORD
+      ARANGO_USER_NAME: $ARANGO_USER_NAME
+      ARANGO_USER_PASSWORD: $ARANGO_USER_PASSWORD
+    build: arangodb
+    image: piggymetrics-arangodb:3.6
+    ports:
+      - 8529:8529
+    restart: always
+    volumes:
+      - /private/opt/arangodb:/var/lib/arangodb3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
+
   registry:
     environment:
       CONFIG_SERVICE_PASSWORD: $CONFIG_SERVICE_PASSWORD
