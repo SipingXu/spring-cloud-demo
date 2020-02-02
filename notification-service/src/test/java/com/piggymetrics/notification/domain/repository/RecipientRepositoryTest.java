@@ -1,15 +1,19 @@
 package com.piggymetrics.notification.domain.repository;
 
+import com.arangodb.springframework.core.ArangoOperations;
+import com.arangodb.springframework.core.CollectionOperations;
 import com.google.common.collect.ImmutableMap;
+import com.piggymetrics.notification.domain.entity.Recipient;
 import com.piggymetrics.notification.domain.vo.Frequency;
 import com.piggymetrics.notification.domain.vo.NotificationSettings;
 import com.piggymetrics.notification.domain.vo.NotificationType;
-import com.piggymetrics.notification.domain.entity.Recipient;
 import org.apache.commons.lang.time.DateUtils;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -18,11 +22,20 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@DataMongoTest
+@SpringBootTest
 public class RecipientRepositoryTest {
 
     @Autowired
     private RecipientRepository repository;
+
+    @Autowired
+    ArangoOperations arangoOperations;
+
+    @After
+    public void tearDown() {
+        CollectionOperations collectionOperations = arangoOperations.collection("recipients");
+        collectionOperations.truncate();
+    }
 
     @Test
     public void shouldFindByAccountName() {
@@ -30,12 +43,12 @@ public class RecipientRepositoryTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(new Date(0));
+        remind.setLastNotified(0);
 
         NotificationSettings backup = new NotificationSettings();
         backup.setActive(false);
         backup.setFrequency(Frequency.MONTHLY);
-        backup.setLastNotified(new Date());
+        backup.setLastNotified(new Date().getTime());
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");
@@ -72,7 +85,7 @@ public class RecipientRepositoryTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(DateUtils.addDays(new Date(), -8));
+        remind.setLastNotified(DateUtils.addDays(new Date(), -8).getTime());
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");
@@ -93,7 +106,7 @@ public class RecipientRepositoryTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(DateUtils.addDays(new Date(), -1));
+        remind.setLastNotified(DateUtils.addDays(new Date(), -1).getTime());
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");
@@ -114,7 +127,7 @@ public class RecipientRepositoryTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(false);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(DateUtils.addDays(new Date(), -30));
+        remind.setLastNotified(DateUtils.addDays(new Date(), -30).getTime());
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");
@@ -135,7 +148,7 @@ public class RecipientRepositoryTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.QUARTERLY);
-        remind.setLastNotified(DateUtils.addDays(new Date(), -91));
+        remind.setLastNotified(DateUtils.addDays(new Date(), -91).getTime());
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");

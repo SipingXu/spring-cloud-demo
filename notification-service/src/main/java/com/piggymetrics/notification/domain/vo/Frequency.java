@@ -1,7 +1,7 @@
 package com.piggymetrics.notification.domain.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import org.codehaus.jackson.annotate.JsonValue;
 
 import java.util.stream.Stream;
 
@@ -10,8 +10,12 @@ public enum Frequency {
 
     WEEKLY(7), MONTHLY(30), QUARTERLY(90);
 
-    @Getter
     private int days;
+
+    @JsonValue
+    public int getDays() {
+        return this.days;
+    }
 
     public static Frequency withDays(int days) {
         return Stream.of(Frequency.values())

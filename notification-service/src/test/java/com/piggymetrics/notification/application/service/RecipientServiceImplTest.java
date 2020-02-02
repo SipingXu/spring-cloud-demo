@@ -57,12 +57,12 @@ public class RecipientServiceImplTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(null);
+        remind.setLastNotified(0);
 
         NotificationSettings backup = new NotificationSettings();
         backup.setActive(false);
         backup.setFrequency(Frequency.MONTHLY);
-        backup.setLastNotified(new Date());
+        backup.setLastNotified(new Date().getTime());
 
         RecipientDTO recipientDTO = new RecipientDTO();
         recipientDTO.setEmail("test@test.com");
@@ -102,7 +102,7 @@ public class RecipientServiceImplTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(null);
+        remind.setLastNotified(0);
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");

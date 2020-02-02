@@ -13,9 +13,11 @@ backup:
 
 spring:
   data:
-    mongodb:
+    arangodb:
+      hosts: localhost:8529
+      user: user
+      password: password
       database: piggymetrics
-      port: 0
   mail:
     host: smtp.gmail.com
     port: 465

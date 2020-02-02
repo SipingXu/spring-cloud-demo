@@ -1,17 +1,15 @@
 package com.piggymetrics.statistics.domain.vo;
 
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
-@ToString
 @AllArgsConstructor
-public class DataPointId implements Serializable {
-    private static final long serialVersionUID = 1L;
-
+@ToString
+public class DataPointId {
     @Getter
     private String account;
     @Getter

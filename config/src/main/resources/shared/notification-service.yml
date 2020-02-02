@@ -26,12 +26,11 @@ backup:
 
 spring:
   data:
-    mongodb:
-      host: mongodb
-      username: user
-      password: ${MONGODB_PASSWORD}
+    arangodb:
+      hosts: localhost:8529
+      user: user
+      password: ${ARANGO_USER_PASSWORD}
       database: piggymetrics
-      port: 27017
   mail:
     host: smtp.gmail.com
     port: 465

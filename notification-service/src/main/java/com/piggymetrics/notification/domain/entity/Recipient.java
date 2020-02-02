@@ -1,11 +1,11 @@
 package com.piggymetrics.notification.domain.entity;
 
+import com.arangodb.springframework.annotation.Document;
 import com.piggymetrics.notification.domain.vo.NotificationSettings;
 import com.piggymetrics.notification.domain.vo.NotificationType;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;

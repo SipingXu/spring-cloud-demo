@@ -111,7 +111,7 @@ function initPrivileges() {
         catch (error) {
             // Ignore the error
         }
-        
+
         users.save(userName, password, true);
         users.grantDatabase(userName, dbName, "rw");
         users.grantCollection(userName, dbName, "*", "rw");

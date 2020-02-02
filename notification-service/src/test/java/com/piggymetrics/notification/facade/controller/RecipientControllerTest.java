@@ -72,12 +72,12 @@ public class RecipientControllerTest {
         NotificationSettings remind = new NotificationSettings();
         remind.setActive(true);
         remind.setFrequency(Frequency.WEEKLY);
-        remind.setLastNotified(null);
+        remind.setLastNotified(0);
 
         NotificationSettings backup = new NotificationSettings();
         backup.setActive(false);
         backup.setFrequency(Frequency.MONTHLY);
-        backup.setLastNotified(null);
+        backup.setLastNotified(0);
 
         Recipient recipient = new Recipient();
         recipient.setAccountName("test");

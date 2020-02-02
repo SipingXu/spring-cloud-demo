@@ -1,15 +1,18 @@
 package com.piggymetrics.statistics.domain.repository;
 
+import com.arangodb.springframework.core.ArangoOperations;
+import com.arangodb.springframework.core.CollectionOperations;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import com.piggymetrics.statistics.domain.entity.DataPoint;
 import com.piggymetrics.statistics.domain.vo.DataPointId;
 import com.piggymetrics.statistics.domain.vo.ItemMetric;
 import com.piggymetrics.statistics.domain.vo.StatisticMetric;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
@@ -19,11 +22,20 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@DataMongoTest
+@SpringBootTest
 public class DataPointRepositoryTest {
 
     @Autowired
     private DataPointRepository repository;
+
+    @Autowired
+    ArangoOperations arangoOperations;
+
+    @After
+    public void tearDown() {
+        CollectionOperations collectionOperations = arangoOperations.collection("datapoints");
+        collectionOperations.truncate();
+    }
 
     @Test
     public void shouldSaveDataPoint() {
@@ -47,7 +59,7 @@ public class DataPointRepositoryTest {
 
         repository.save(point);
 
-        List<DataPoint> points = repository.findByIdAccount(pointId.getAccount());
+        List<DataPoint> points = repository.findByAccount(pointId.getAccount());
         assertEquals(1, points.size());
         assertEquals(pointId.getDate(), points.get(0).getId().getDate());
         assertEquals(point.getStatistics().size(), points.get(0).getStatistics().size());
@@ -79,7 +91,7 @@ public class DataPointRepositoryTest {
 
         repository.save(later);
 
-        List<DataPoint> points = repository.findByIdAccount(pointId.getAccount());
+        List<DataPoint> points = repository.findByAccount(pointId.getAccount());
 
         assertEquals(1, points.size());
         assertEquals(lateAmount, points.get(0).getStatistics().get(StatisticMetric.SAVING_AMOUNT));

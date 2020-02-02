@@ -1,11 +1,9 @@
 package com.piggymetrics.account.domain.repository;
 
+import com.arangodb.springframework.repository.ArangoRepository;
 import com.piggymetrics.account.domain.entity.Account;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface AccountRepository extends CrudRepository<Account, String> {
+public interface AccountRepository extends ArangoRepository<Account, String> {
 
     Account findByName(String name);
 

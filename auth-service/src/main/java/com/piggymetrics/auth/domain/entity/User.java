@@ -1,9 +1,8 @@
 package com.piggymetrics.auth.domain.entity;
 
-import lombok.Data;
+import com.arangodb.springframework.annotation.Document;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

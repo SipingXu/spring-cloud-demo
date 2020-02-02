@@ -1,12 +1,11 @@
 package com.piggymetrics.account.domain.entity;
 
+import com.arangodb.springframework.annotation.Document;
 import com.piggymetrics.account.domain.vo.Item;
 import com.piggymetrics.account.domain.vo.Saving;
 import lombok.Data;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

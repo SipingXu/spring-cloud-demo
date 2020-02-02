@@ -1,8 +1,8 @@
 package com.piggymetrics.statistics.domain.vo;
 
+import com.arangodb.springframework.annotation.Document;
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

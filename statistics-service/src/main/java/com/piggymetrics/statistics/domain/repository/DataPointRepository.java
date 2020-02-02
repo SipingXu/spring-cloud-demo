@@ -1,15 +1,20 @@
 package com.piggymetrics.statistics.domain.repository;
 
+import com.arangodb.springframework.annotation.Query;
+import com.arangodb.springframework.repository.ArangoRepository;
 import com.piggymetrics.statistics.domain.entity.DataPoint;
-import com.piggymetrics.statistics.domain.vo.DataPointId;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface DataPointRepository extends CrudRepository<DataPoint, DataPointId> {
+public interface DataPointRepository extends ArangoRepository<DataPoint, String> {
 
-    List<DataPoint> findByIdAccount(String account);
+    @Query("FOR doc IN datapoints FILTER doc.id.account == @account RETURN doc")
+    List<DataPoint> findByAccount(@Param("account") String account);
 
+    @Override
+    @Query("UPSERT {id: @dataPoint.id} INSERT @dataPoint UPDATE @dataPoint IN datapoints RETURN NEW")
+    DataPoint save(@Param("dataPoint") DataPoint dataPoint);
 }

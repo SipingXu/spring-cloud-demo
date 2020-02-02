@@ -49,7 +49,7 @@ public class StatisticsServiceImplTest {
     @Test
     public void shouldFindDataPointListByAccountName() {
         final List<DataPoint> list = ImmutableList.of(new DataPoint());
-        when(repository.findByIdAccount("test")).thenReturn(list);
+        when(repository.findByAccount("test")).thenReturn(list);
 
         List<DataPoint> result = statisticsService.findByAccountName("test");
         assertEquals(list, result);

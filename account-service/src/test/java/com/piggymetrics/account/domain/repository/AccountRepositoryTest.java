@@ -8,17 +8,18 @@ import com.piggymetrics.account.domain.vo.TimePeriod;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
-@DataMongoTest
+@SpringBootTest
 public class AccountRepositoryTest {
 
     @Autowired
@@ -73,7 +74,7 @@ public class AccountRepositoryTest {
         account.setLastSeen(new Date());
         account.setSaving(saving);
         account.setExpenses(Arrays.asList(grocery, vacation));
-        account.setIncomes(Arrays.asList(salary));
+        account.setIncomes(Collections.singletonList(salary));
 
         return account;
     }
