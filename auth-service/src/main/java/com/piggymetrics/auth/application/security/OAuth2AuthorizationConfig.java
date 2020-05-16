@@ -1,6 +1,5 @@
-package com.piggymetrics.auth.infrastructure.config;
+package com.piggymetrics.auth.application.security;
 
-import com.piggymetrics.auth.application.security.MongoUserDetailsService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;

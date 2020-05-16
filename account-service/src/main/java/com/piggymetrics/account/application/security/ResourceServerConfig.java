@@ -1,4 +1,4 @@
-package com.piggymetrics.account.infrustructure.config;
+package com.piggymetrics.account.application.security;
 
 import com.piggymetrics.account.application.security.CustomUserInfoTokenServices;
 import feign.RequestInterceptor;

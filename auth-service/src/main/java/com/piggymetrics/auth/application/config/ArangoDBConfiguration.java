@@ -1,4 +1,4 @@
-package com.piggymetrics.auth.infrastructure.config;
+package com.piggymetrics.auth.application.config;
 
 import com.arangodb.ArangoDB;
 import com.arangodb.springframework.annotation.EnableArangoRepositories;

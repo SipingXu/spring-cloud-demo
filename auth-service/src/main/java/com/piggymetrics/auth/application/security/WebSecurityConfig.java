@@ -1,4 +1,4 @@
-package com.piggymetrics.auth.infrastructure.config;
+package com.piggymetrics.auth.application.security;
 
 import com.piggymetrics.auth.application.security.MongoUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
